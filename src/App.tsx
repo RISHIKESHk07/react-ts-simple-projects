@@ -1,9 +1,25 @@
 import useMultistepForm from './useMultistepForm'
-
-
+import { useState } from 'react'
+import Form from './form';
+import Form1 from './form2';
+import Form2 from './form3';
+type formdata ={
+  name:string,
+  email:string,
+  age:number,
+  password:string,
+  username:string,
+}
 function App() {
-const {next,back,gotoIndex,currentindex,steps,firstindex,lastindex} =useMultistepForm([<div>one</div>,<div>two</div>,<div>three</div>])
+  const updateDetails = (fields : Partial<formdata>) =>{
+    setdata(prev=>{return {...prev,...fields }})
+  }
+ const INTIAL :formdata ={
+  name:"",age:0,email:"",password:"",username:""
+};
 
+const [data,setdata]=useState(INTIAL);
+const {next,back,gotoIndex,currentindex,steps,firstindex,lastindex} =useMultistepForm([<Form {...data} updateDetails={updateDetails} />,<Form1 {...data}  updateDetails={updateDetails}/>,<Form2 {...data}/>]);
 
   return (
     <>
